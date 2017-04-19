@@ -11,13 +11,12 @@
     </ul>
 </nav>
 <div class="articles form large-9 medium-8 columns content">
-    <?= $this->Form->create($article) ?>
+    <?= $this->Form->create($article,array('enctype'=>'multipart/form-data')) ?>
     <fieldset>
         <legend><?= __('Add Article') ?></legend>
         <?php
-            echo $this->Form->control('Id_user');
-            echo $this->Form->control('Id_category');
-            echo $this->Form->control('Id_section');
+            echo $this->Form->input('Id_category', array('options' => $categories, 'default' => 'Select Categorie'));
+            echo $this->Form->input('Id_section', array('options' => $sections, 'default' => 'Select Section'));
             echo $this->Form->control('Title');
             echo '<div class="input text required">';
             echo $this->Form->label('Article.Description');
@@ -27,9 +26,7 @@
             echo $this->Form->label('Article.Contenu');
             echo '</div>';
             echo $this->Form->textarea('Content', ['rows' => '5', 'cols' => '5', 'id'=>'editor']);
-            echo $this->Form->control('Image');
-            echo $this->Form->control('Created');
-            echo $this->Form->control('Modified');
+            echo $this->Form->input('Image', array('type'=>'file'));
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

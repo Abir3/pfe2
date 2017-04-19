@@ -38,7 +38,7 @@
                 <td><?= $this->Number->format($article->Id_section) ?></td>
                 <td><?= h($article->Title) ?></td>
                 <td><?= h($article->Description) ?></td>
-                <td><?= h($article->Image) ?></td>
+                <td><?= $this->Html->image('uploads/'.$article->Image, array('alt' => 'CakePHP', 'border' => '0')); ?></td>
                 <td><?= h($article->Created) ?></td>
                 <td><?= h($article->Modified) ?></td>
                 <td class="actions">

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+
 /**
  * Articles Controller
  *
@@ -10,6 +11,11 @@ use App\Controller\AppController;
  */
 class ArticlesController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Upload');
+    }
 
     /**
      * Index method
@@ -41,18 +47,28 @@ class ArticlesController extends AppController
         $this->set('_serialize', ['article']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
+
+
     public function add()
     {
 
+
+
+
         $article = $this->Articles->newEntity();
-        /*$this->request->Id_user = $this->Auth->user('id');*/
         if ($this->request->is('post')) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
+            $article->Id_user = $this->Auth->user('Id');
+
+            $image = $this->request->data['Image'];
+
+            $filename = '';
+            if ( !empty( $this->request->data ) ) {
+               $filename = $this->Upload->send([$image]);
+            }
+
+            $article->Image =  $filename[0];
+
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
 
@@ -60,8 +76,8 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
-        $this->set(compact('article'));
-        $this->set('_serialize', ['article']);
+        $this->set(compact('article','categories','sections'));
+        $this->set('_serialize', ['article','categories','sections']);
     }
 
     /**

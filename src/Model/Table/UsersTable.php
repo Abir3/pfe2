@@ -63,18 +63,14 @@ class UsersTable extends Table
             ->notEmpty('username');
 
         $validator
+            ->string('email')
+            ->requirePresence('email', 'create')
+            ->notEmpty('email');
+
+        $validator
             ->requirePresence('Password', 'create')
             ->notEmpty('Password');
 
-        $validator
-            ->date('Created')
-            ->requirePresence('Created', 'create')
-            ->notEmpty('Created');
-
-        $validator
-            ->date('Modified')
-            ->requirePresence('Modified', 'create')
-            ->notEmpty('Modified');
 
         return $validator;
     }

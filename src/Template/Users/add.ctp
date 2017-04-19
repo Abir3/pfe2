@@ -16,10 +16,11 @@
         <?php
             echo $this->Form->control('FirstName');
             echo $this->Form->control('LastName');
+            echo $this->Form->control('username');
             echo $this->Form->control('email');
             echo $this->Form->control('Password');
-            echo $this->Form->control('Created');
-            echo $this->Form->control('Modified');
+/*            echo $this->Form->control('Created');
+            echo $this->Form->control('Modified');*/
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

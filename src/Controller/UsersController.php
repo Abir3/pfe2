@@ -20,15 +20,16 @@ class UsersController extends AppController
    {
         if ($this->request->is('post')) 
         {
-        $user = $this->Auth->identify();
+            $user = $this->Auth->identify();
         if ($user) 
-            {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            else {
-        $this->Flash->error(__('Invalid email or password, try again'));
-                 }
+        {
+            $this->Auth->setUser($user);
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+        else
+        {
+            $this->Flash->error(__('Invalid email or password, try again'));
+        }
        }
   }
 

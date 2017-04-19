@@ -17,7 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
-
+use Cake\ORM\TableRegistry;
 /**
  * Application Controller
  *
@@ -38,26 +38,27 @@ class AppController extends Controller
      *
      * @return void
      */
+
     public function initialize()
     {
-        parent::initialize();
-
-        $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'authorize' => ['Controller'],  
-            'loginRedirect' => [
-                'controller' => 'Articles',
-                'action' => 'index'
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'home'
-            ]]);
+        $this->loadComponent('Auth',
+                    ['loginAction' => [
+                        'controller' => 'Users',
+                        'action' => 'login'
+                     ],'authenticate' => [
+                          'Form' => [
+                            'fields' => [
+                              'username' => 'email',
+                              'password' => 'password',
+                             ]
+                           ]
+                     ],'loginRedirect' => [
+                         'controller' => 'Pages',
+                         'action' => 'index'
+                     ],
+                ]);
     }
-
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -82,6 +83,17 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
+        $categories = TableRegistry::get('Categories');
+        $cats = $categories->find('all',array('fields'=>array('Id','Title')))->toarray();
+
+        $sections = TableRegistry::get('Sections');
+        $sec = $sections->find('all',array('fields'=>array('Id','Title')))->toarray();
+
+
+        $categories = array_column($cats, 'Title','Id');
+        $sections = array_column($sec, 'Title','Id');
+        $this->set('categories', $categories);
+        $this->set('sections', $sections);
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {

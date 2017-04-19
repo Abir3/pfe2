@@ -73,19 +73,8 @@ class ArticlesTable extends Table
             ->requirePresence('Content', 'create')
             ->notEmpty('Content');
 
-        $validator
-            ->requirePresence('Image', 'create')
-            ->notEmpty('Image');
 
-        $validator
-            ->date('Created')
-            ->requirePresence('Created', 'create')
-            ->notEmpty('Created');
 
-        $validator
-            ->date('Modified')
-            ->requirePresence('Modified', 'create')
-            ->notEmpty('Modified');
 
         return $validator;
     }

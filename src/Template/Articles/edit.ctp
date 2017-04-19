@@ -21,9 +21,8 @@ edit
     <fieldset>
         <legend><?= __('Edit Article') ?></legend>
         <?php
-            echo $this->Form->control('Id_user');
-            echo $this->Form->control('Id_category');
-            echo $this->Form->control('Id_section')
+            echo $this->Form->input('Id_category', array('options' => $categories, 'default' => 'Select Categorie'));
+            echo $this->Form->input('Id_section', array('options' => $sections, 'default' => 'Select Section'));
             echo $this->Form->control('Title');
             echo $this->Form->textarea('Description', ['rows' => '5', 'cols' => '5']);
             echo $this->Form->textarea('Content', ['rows' => '5', 'cols' => '5']);

@@ -32,11 +32,13 @@
         </div>
     </nav>
     <?= $this->Flash->render() ?>
+    
     <div class="container clearfix">
+            <?php if(isset($tables)){ ?>
             <nav class="large-3 medium-6 columns" id="actions-sidebar">
 
                 <ul class="side-nav">
-
+                
                     <?php foreach ($tables as $index => $table): ?>
                         <li >
                                <?= $this->Html->link(
@@ -55,8 +57,10 @@
 
                         
                         <?php endforeach; ?>
+                         
                 </ul>
             </nav>
+            <?php }; ?>
         <?= $this->fetch('content') ?>
     </div>
     <footer>
